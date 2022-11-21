@@ -1,0 +1,31 @@
+{% extends 'package/snippets/package_form.html' %}
+
+{% block stages %}
+  {% if form_style != 'edit' %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+
+{% block save_button_text %}
+  {% if form_style != 'edit' %}
+    {{ super() }}
+  {% else %}
+    {{ _('Update Dataset') }}
+  {% endif %}
+{% endblock %}
+
+{% block cancel_button %}
+  {% if form_style != 'edit' %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+
+{% block delete_button %}
+  {% if h.check_access('package_delete', {'id': data.id}) and data.id %}
+    {% if form_style == 'new' %}
+      <a class="btn btn-danger pull-left" href="{% url_for dataset_type ~ '.delete', id=data.id %}" data-module="confirm-action" data-module-content="{{ _('Are you sure you want to delete this draft dataset?') }}">{{ _("Delete Draft") }}</a>
+    {% else %}
+      {{ super() }}
+    {% endif %}
+  {% endif %}
+{% endblock %}

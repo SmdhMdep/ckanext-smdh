@@ -1,0 +1,23 @@
+{% set intro = g.site_intro_text %}
+
+<div class="module-content box" style="padding-bottom:30px;">
+  <div >
+  {% block home_image %}
+    <section class="featured media-overlay hidden-xs">
+      {% block home_image_content %}
+        <a class="media-image" href="#">
+          <img class="img-responsive" src="https://i.ibb.co/V06mXNP/SMDH2.png" alt="SMDH Logo" width="420" height="220" />
+        </a>
+      {% endblock %}
+    </section>
+  {% endblock %}
+  </div>
+  <div>
+      <h2>{{ intro }}</h2>
+      <p> Asset explorer allows you and your business and view what SMDH has done for others.
+          It also allows you to publish any data created from your experience in SMDH or beyond.
+          The more you share the more data others will share with you.
+      </p>
+  </div>
+
+</div>
