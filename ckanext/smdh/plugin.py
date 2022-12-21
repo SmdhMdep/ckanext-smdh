@@ -5,7 +5,7 @@ import ckanext.smdh.middleware as smdh_middleware
 
 class SmdhPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
-    plugins.implements(plugins.IMiddleware)
+    #plugins.implements(plugins.IMiddleware)
 
     # IConfigurer
 
@@ -17,8 +17,8 @@ class SmdhPlugin(plugins.SingletonPlugin):
 
     # IMiddleware
 
-    def make_middleware(self, app, config):
-        return smdh_middleware.AuthMiddleware(app, config)
+    #def make_middleware(self, app, config):
+    #    return smdh_middleware.AuthMiddleware(app, config)
 
-    def make_error_log_middleware(self, app, config):
-        return smdh_middleware.AuthMiddleware(app, config)
+    #def make_error_log_middleware(self, app, config):
+    #    return smdh_middleware.AuthMiddleware(app, config)
