@@ -7,8 +7,8 @@
 #     preload:
 #       - base/main
 
-# smdh-css:
-#   filter: cssrewrite
-#   output: ckanext-smdh/%(version)s-smdh.css
-#   contents:
-#     - css/smdh.css
+smdh-css:
+  filter: cssrewrite
+  output: ckanext-smdh/%(version)s-smdh.css
+  contents:
+    - css/smdh.css

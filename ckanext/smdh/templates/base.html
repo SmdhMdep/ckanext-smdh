@@ -1,6 +1,11 @@
 {% ckan_extends %}
 
 {% block styles %}
-  <link href="/base/css/main.css" rel="stylesheet">
-  <link href="/example_theme.css" rel="stylesheet"/>
+  {{ super() }}
+{# Import smdh.css using Webassets.  'smdh/' is
+    the name that the smdh/fanstatic directory was registered
+    with when the toolkit.add_resource() function was called.
+    'smdh-css' is the name to the Webassets bundle file,
+    registered inside webassets.yml file. #}
+  {% asset 'smdh/smdh-css' %}
 {% endblock %}

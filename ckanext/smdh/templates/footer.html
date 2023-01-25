@@ -1,0 +1,22 @@
+{% ckan_extends %}
+{% block footer_attribution %}
+<div>
+    <span>
+        <p>
+            {% trans %}
+                <strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="http://ckan.org">CKAN</a>
+            {% endtrans %}
+        </p>
+    </span>
+    <span>
+        <p>
+            {% trans %}
+                <strong>Developed by <a href="https://www.hartree.stfc.ac.uk">
+            {% endtrans %}
+            <img src="{{ h.url_for_static('/base/images/logo-white.svg') }}" alt="STFC Hartree Centre"></a></strong>
+            
+        </p>
+    </span>
+</div>
+
+{% endblock footer_attribution %}
