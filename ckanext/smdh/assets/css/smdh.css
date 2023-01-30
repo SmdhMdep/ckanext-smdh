@@ -2,7 +2,8 @@
 
 :root {
   --brand-colour-yellow: #FFCB03;
-  --brand-colour-yellow-low-opacity: #ffcb039c;
+  --brand-colour-yellow-medium-opacity: #ffcd0367;
+  --brand-colour-yellow-low-opacity: #ffcd0344;
   --brand-colour-black: #020000;
   --brand-colour-pink: #EF528A;
   --brand-colour-blue: #00A6E4;
@@ -78,13 +79,13 @@
 /* The "navigation pills" in the masthead (the links to Datasets,
    Organizations, etc) when the user's pointer hovers over them. */
 .masthead .navigation .nav-pills li a:hover {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--brand-colour-yellow-low-opacity);;
   color: white;
 }
 /* The "active" navigation pill (for example, when you're on the /dataset page
    the "Datasets" link is active). */
-.masthead .navigation .nav-pills li.active a {
-  background-color: var(--brand-colour-yellow-low-opacity);
+.masthead .navigation .nav-pills li.active a, .masthead .navigation .nav-pills li a:focus {
+  background-color: var(--brand-colour-yellow-medium-opacity);
   /* color: var(--brand-colour-black); */
 }
 /* The "box shadow" effect that appears around the search box when it
@@ -138,7 +139,11 @@
     background-color: var(--brand-colour-yellow);
     border-color: var(--brand-colour-yellow-low-opacity);
 }
-
+/* The Popular tags banner in the middle of home page */
+.homepage .module-search .tags {
+  background-color: var(--brand-colour-blue-light);
+  color: #000;
+}
 
 /* ====================================
    The footer at the bottom of the site
