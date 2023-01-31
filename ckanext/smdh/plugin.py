@@ -2,9 +2,11 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
 import ckanext.smdh.middleware as smdh_middleware
+import ckanext.smdh.helpers as helpers
 
 class SmdhPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
+    plugins.implements(plugins.ITemplateHelpers, inherit=True)
     #plugins.implements(plugins.IMiddleware)
 
     # IConfigurer
@@ -34,3 +36,7 @@ class SmdhPlugin(plugins.SingletonPlugin):
 
     #def make_error_log_middleware(self, app, config):
     #    return smdh_middleware.AuthMiddleware(app, config)
+
+    # ITemplateHelpers
+    def get_helpers(self):
+        return {'isAdmin': helpers.isAdmin}
