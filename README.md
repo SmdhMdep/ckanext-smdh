@@ -1,4 +1,4 @@
-[![Tests](https://github.com//ckanext-smdh/workflows/Tests/badge.svg?branch=main)](https://github.com//ckanext-smdh/actions)
+[![Tests](https://github.com/SmdhMdep/ckanext-smdh/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/SmdhMdep/ckanext-smdh/actions/workflows/test.yml)
 
 # ckanext-smdh
 
