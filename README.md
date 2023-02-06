@@ -2,7 +2,7 @@
 
 # ckanext-smdh
 
-This extensions applies a SMDH specific branding theme. 
+This extension applies a SMDH specific branding theme. 
 
 
 ## Requirements
