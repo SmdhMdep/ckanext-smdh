@@ -25,10 +25,12 @@ To install ckanext-smdh:
 
 2. Clone the source and install it on the virtualenv
 
+    ```bash 
     git clone https://github.com/SmdhMdep/ckanext-smdh.git
     cd ckanext-smdh
     pip install -e .
     pip install -r requirements.txt
+    ```
 
 3. Add `smdh` to the `ckan.plugins` setting in your CKAN
    config file (by default the config file is located at
@@ -36,7 +38,9 @@ To install ckanext-smdh:
 
 4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
 
+    ```bash
     sudo service apache2 reload
+    ```
 
 
 ## Config settings
@@ -48,10 +52,12 @@ None at present
 
 To install ckanext-smdh for development, activate your CKAN virtualenv and
 do:
+    ```bash
     git clone https://github.com//ckanext-smdh.git
     cd ckanext-smdh
     python setup.py develop
     pip install -r dev-requirements.txt
+    ```
 
 
 ## Tests
