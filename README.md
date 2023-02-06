@@ -25,7 +25,7 @@ To install ckanext-smdh:
 
 2. Clone the source and install it on the virtualenv
 
-    git clone https://gitlab.stfc.ac.uk/smdh/ckanext-smdh.git
+    git clone https://github.com/SmdhMdep/ckanext-smdh.git
     cd ckanext-smdh
     pip install -e .
 	pip install -r requirements.txt
