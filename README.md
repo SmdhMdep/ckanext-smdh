@@ -52,13 +52,13 @@ None at present
 
 To install ckanext-smdh for development, activate your CKAN virtualenv and
 do:
+    
     ```bash
     git clone https://github.com//ckanext-smdh.git
     cd ckanext-smdh
     python setup.py develop
     pip install -r dev-requirements.txt
     ```
-
 
 ## Tests
 
