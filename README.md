@@ -12,21 +12,10 @@ This extension does not have any particular requirements as it changes only visu
 Compatibility with core CKAN versions:
 
 | CKAN version    | Compatible?   |
-| 2.9             | tested    |
-
-Suggested values:
-
-* "yes"
-* "not tested" - I can't think of a reason why it wouldn't work
-* "not yet" - there is an intention to get it working
-* "no"
+| 2.9             | yes   |
 
 
 ## Installation
-
-**TODO:** Add any additional install steps to the list below.
-   For example installing any non-Python dependencies or adding any required
-   config settings.
 
 To install ckanext-smdh:
 
