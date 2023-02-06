@@ -1,5 +1,9 @@
 name: Tests
-on: [push]
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths-ignore:
+    - README.md
 jobs:
   test:
     runs-on: ubuntu-latest
