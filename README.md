@@ -2,7 +2,7 @@
 
 # ckanext-smdh
 
-This extensions applies a SMDH specific branding theme. 
+This extension applies a SMDH specific branding theme. 
 
 
 ## Requirements
@@ -25,10 +25,12 @@ To install ckanext-smdh:
 
 2. Clone the source and install it on the virtualenv
 
+    ```bash 
     git clone https://github.com/SmdhMdep/ckanext-smdh.git
     cd ckanext-smdh
     pip install -e .
     pip install -r requirements.txt
+    ```
 
 3. Add `smdh` to the `ckan.plugins` setting in your CKAN
    config file (by default the config file is located at
@@ -36,7 +38,9 @@ To install ckanext-smdh:
 
 4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
 
+    ```bash
     sudo service apache2 reload
+    ```
 
 
 ## Config settings
@@ -48,18 +52,17 @@ None at present
 
 To install ckanext-smdh for development, activate your CKAN virtualenv and
 do:
+    
     git clone https://github.com//ckanext-smdh.git
     cd ckanext-smdh
     python setup.py develop
     pip install -r dev-requirements.txt
-
-
+    
 ## Tests
 
 To run the tests, do:
 
     pytest --ckan-ini=test.ini
-
 
 ## Releasing a new version of ckanext-smdh
 
@@ -68,7 +71,7 @@ If ckanext-smdh should be available on PyPI you can follow these steps to publis
 1. Update the version number in the `setup.py` file. See [PEP 440](http://legacy.python.org/dev/peps/pep-0440/#public-version-identifiers) for how to choose version numbers.
 
 2. Make sure you have the latest version of necessary packages:
-
+    
     pip install --upgrade setuptools wheel twine
 
 3. Create a source and binary distributions of the new version:
