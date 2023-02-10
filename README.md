@@ -7,7 +7,7 @@ This extension applies a SMDH specific branding theme.
 
 ## Requirements
 
-This extension does not have any particular requirements as it changes only visual components using dependencies already installed by CKAN 2.9
+This extension does not have any particular requirements as it only changes visual components using dependencies already installed by CKAN 2.9
 
 Compatibility with core CKAN versions:
 
