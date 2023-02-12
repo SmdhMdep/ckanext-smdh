@@ -21,11 +21,13 @@
 {% endblock %}
 
 {% block delete_button %}
-  {% if h.check_access('package_delete', {'id': data.id}) and data.id %}
-    {% if form_style == 'new' %}
-      <a class="btn btn-danger pull-left" href="{% url_for dataset_type ~ '.delete', id=data.id %}" data-module="confirm-action" data-module-content="{{ _('Are you sure you want to delete this draft dataset?') }}">{{ _("Delete Draft") }}</a>
-    {% else %}
-      {{ super() }}
+  {% if data.id %}
+    {% if h.check_access('package_delete', {'id': data.id}) %}
+      {% if form_style == 'new' %}
+        <a class="btn btn-danger pull-left" href="{% url_for dataset_type ~ '.delete', id=data.id %}" data-module="confirm-action" data-module-content="{{ _('Are you sure you want to delete this draft dataset?') }}">{{ _("Delete Draft") }}</a>
+      {% else %}
+        {{ super() }}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endblock %}
