@@ -39,4 +39,6 @@ class SmdhPlugin(plugins.SingletonPlugin):
 
     # ITemplateHelpers
     def get_helpers(self):
-        return {'isAdmin': helpers.isAdmin}
+        return {'isAdmin': helpers.isAdmin,
+        'getTracking': helpers.getTracking
+        }
