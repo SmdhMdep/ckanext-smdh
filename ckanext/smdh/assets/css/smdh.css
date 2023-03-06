@@ -12,14 +12,21 @@
   --brand-colour-steel-grey: #9CBCCD;
   --brand-colour-stone-beige: #E9E4DD;
   --brand-font-family: 'Raleway', sans-serif;
+
+
+  --breakpoint-xs: 360px;
+  --breakpoint-s: 576px;
+  --breakpoint-m: 768px;
+  --breakpoint-l: 992px;
+  --breakpoint-xl: 1200px;
 }
 
- body {
+body {
   font-family: var(--brand-font-family);
   font-weight: 300;
- }
+}
 
- .flex-container {
+.flex-container {
   display: flex;
   flex-direction: row;
   gap: 2em;
@@ -27,7 +34,7 @@
   align-items: top;
   padding: 0;
   margin: 0;
- }
+}
 
 
 /* =====================================================
@@ -35,8 +42,9 @@
    ===================================================== */
 
 .account-masthead {
-    background-color: var(--brand-colour-yellow);
+  background-color: var(--brand-colour-yellow);
 }
+
 /* The "bubble" containing the number of new notifications. */
 .account-masthead .account .notifications a span {
   background-color: black;
@@ -57,13 +65,15 @@
 .account-masthead .account ul li a {
   color: var(--brand-colour-black);
 }
+
 /* The user account info text and icons, when the user's pointer is hovering
    over them. */
 .account-masthead .account ul li a:hover {
   color: var(--brand-colour-yellow);
   background-color: black;
 }
-.account-masthead .account ul li a:hover > .badge {
+
+.account-masthead .account ul li a:hover>.badge {
   background-color: var(--brand-colour-yellow);
   color: var(--brand-colour-black);
 }
@@ -76,18 +86,23 @@
 .masthead {
   background-color: #000000;
 }
+
 /* The "navigation pills" in the masthead (the links to Datasets,
    Organizations, etc) when the user's pointer hovers over them. */
 .masthead .navigation .nav-pills li a:hover {
-  background-color: var(--brand-colour-yellow-low-opacity);;
+  background-color: var(--brand-colour-yellow-low-opacity);
+  ;
   color: white;
 }
+
 /* The "active" navigation pill (for example, when you're on the /dataset page
    the "Datasets" link is active). */
-.masthead .navigation .nav-pills li.active a, .masthead .navigation .nav-pills li a:focus {
+.masthead .navigation .nav-pills li.active a,
+.masthead .navigation .nav-pills li a:focus {
   background-color: var(--brand-colour-yellow-medium-opacity);
   /* color: var(--brand-colour-black); */
 }
+
 /* The "box shadow" effect that appears around the search box when it
    has the keyboard cursor's focus. */
 .masthead input[type="text"]:focus {
@@ -104,41 +119,49 @@
 .box {
   box-shadow: none;
 }
+
 /* Remove the borders around the "Welcome to CKAN" and "Search Your Data"
    boxes. */
 .hero .box {
   border: none;
 }
+
 /* Change the colors of the "Search Your Data" box. */
 .homepage .module-search .module-content {
   color: rgb(68, 68, 68);
   background-color: white;
 }
+
 /* Change the background color of the "Popular Tags" box. */
 .homepage .module-search .tags {
   background-color: rgb(61, 61, 61);
 }
+
 /* Remove some padding. This makes the bottom edges of the "Welcome to CKAN"
    and "Search Your Data" boxes line up. */
 .module-content:last-child {
   padding-bottom: 0px;
 }
+
 .module-heading {
   background-color: var(--brand-colour-stone-beige);
 }
+
 .homepage .module-search {
   padding: 0px;
 }
+
 /* Add a border line between the top and bottom halves of the front page. */
 .homepage [role="main"] {
   border-top: 1px solid rgb(204, 204, 204);
 }
 
 .btn-primary {
-    color: var(--brand-colour-black);
-    background-color: var(--brand-colour-yellow);
-    border-color: var(--brand-colour-yellow-low-opacity);
+  color: var(--brand-colour-black);
+  background-color: var(--brand-colour-yellow);
+  border-color: var(--brand-colour-yellow-low-opacity);
 }
+
 /* The Popular tags banner in the middle of home page */
 .homepage .module-search .tags {
   background-color: var(--brand-colour-blue-light);
@@ -153,13 +176,33 @@
 body {
   background-color: rgb(0, 0, 0);
 }
+
 /* The text in the footer. */
 .site-footer,
 .site-footer label,
 .site-footer small {
   color: rgba(255, 255, 255, 0.6);
 }
+
 /* The link texts in the footer. */
 .site-footer a {
   color: rgba(255, 255, 255, 0.6);
+}
+
+/* ====================================
+           Organization item
+  ==================================== */
+
+  /* Added a div container for the image, which takes the dimensions of 
+    its parent element, <li>. whilst accounting for the padding [178px - (2x15px)] 
+    and sets a fixed height*/
+.img-container {
+  display: block;
+  width: 148px;
+  height: 150px;
+}
+/* Having a parent element with fixed size, this img can now take the full size of its parent */
+.img-responsive.media-image {
+  width: 100%;
+  height: 100%;
 }
