@@ -2,7 +2,6 @@
 {% block item %}
 <li class="media-item">
   {% block item_inner %}
-  <!-- <div class="media-item-inner"> -->
         {% block link %}
         <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization.display_name) }}" class="media-view">
           <span>{{ _('View {organization_name}').format(organization_name=organization.display_name) }}</span>
@@ -35,7 +34,6 @@
       
       
         {% endblock link %}
-  <!-- </div> -->
   
   {% endblock item_inner %}
 </li>
