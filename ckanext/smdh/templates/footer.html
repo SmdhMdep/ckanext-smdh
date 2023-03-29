@@ -20,3 +20,8 @@
 </div>
 
 {% endblock footer_attribution %}
+
+{% block footer_links_ckan %}
+    <li><a href="https://mdep.smdh.uk/dataset/77498c71-4d64-4d56-b75b-f5c2c2c9aa80/resource/ede3139c-3058-43e8-a081-bdebff163b74/download/smdh-aep-user-guide.pdf">{{ _('Help') }}</a></li>
+    {{ super() }}
+{% endblock %}
