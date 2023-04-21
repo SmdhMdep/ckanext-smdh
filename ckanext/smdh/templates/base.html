@@ -8,4 +8,11 @@
     'smdh-css' is the name to the Webassets bundle file,
     registered inside webassets.yml file. #}
   {% asset 'smdh/smdh-css' %}
+  {% asset 'smdh/smdh-css-dep' %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {% asset 'smdh/smdh-js-dep' %}
+  {% asset 'smdh/smdh-js' %}
 {% endblock %}

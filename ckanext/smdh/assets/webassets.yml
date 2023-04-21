@@ -1,14 +1,28 @@
-# smdh-js:
-#   filter: rjsmin
-#   output: ckanext-smdh/%(version)s-smdh.js
-#   contents:
-#     - js/smdh.js
-#   extra:
-#     preload:
-#       - base/main
-
+smdh-js:
+  filter: rjsmin
+  output: ckanext-smdh/%(version)s-smdh.js
+  contents:
+    - js/img-cropper.js
+  extra:
+    preload:
+      - base/main
+      - ckanext-smdh/smdh-css
+smdh-js-dep:
+  filter: rjsmin
+  output: ckanext-smdh/%(version)s-smdh-dep.js
+  contents:
+    - js/cropper.min.js
+  extra:
+    preload:
+      - base/main
+      - ckanext-smdh/smdh-css-dep
 smdh-css:
   filter: cssrewrite
   output: ckanext-smdh/%(version)s-smdh.css
   contents:
     - css/smdh.css
+smdh-css-dep:
+  filter: cssrewrite
+  output: ckanext-smdh/%(version)s-smdh-dep.css
+  contents:
+    - css/cropper.min.css
