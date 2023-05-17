@@ -9,7 +9,12 @@
       field_clear: 'clear_upload',
       field_name: 'name',
       upload_label: '',
-      previous_upload: false
+      previous_upload: false,
+      // vars to store data the cropper needs
+      cropper: null,
+      canvas: null,
+      file: null,
+      self: null,
     },
 
     /* Should be changed to true if user modifies resource's name
@@ -195,6 +200,7 @@
       this.field_clear.val('true');
     },
 
+   
     /* Event listener for when someone chooses a file to upload
      *
      * Returns nothing.
@@ -223,70 +229,101 @@
 
       this._updateUrlLabel(this._('File'));
 
-      var file = this.input[0].files[0];
+      this.options.file = this.input[0].files[0];
       var reader = new FileReader();
       // keeping track of the cropper instance so we can destroy it and reinitialise
-      var cropper = null;
+      
 
       reader.onload = function(e) {
-        var imageUrl = e.target.result;
-        // Open the modal
-        $('#cropper-modal').modal('show');
-        // shown.bs.modal is the Bootstrap-generated event triggered to open the modal
-        $("#cropper-output-image").attr("src", imageUrl);
-        $('#cropper-modal').on('shown.bs.modal', function() {
-          // destroy old cropper instance if it exists
-          if (cropper !== null) {
-            cropper.destroy();
-          }
-          var cropper = new Cropper(document.getElementById('cropper-output-image'), {
-            aspectRatio: 1, // set the aspect ratio for the crop area
-            viewMode: 2, // limit the crop area to the size of the image
-            // autoCropArea: 1, // make the initial crop area cover the entire image
-            responsive: true,
-            modal: false,
-            minContainerHeight: 350,
-            // more options here
-          });
-        })
-
-        // When the "Apply" button is clicked, crops the image and replaces the original file
-        $('#apply-crop').click(function() {
-          var canvas = cropper.getCroppedCanvas();
-          canvas.toBlob(function(blob) {
-          // Creates a new File object with the same name as the original file
-          var newFile = new File([blob], file.name, {type: file.type});
-
-          // Replace the original file in the input element with the new File object
-          
-          // Creates a new DataTransfer object because due to security reasons
-          // we can't modify the Filelist of the file input field; it is read-only
-          var dataTransfer = new DataTransfer();
-          dataTransfer.items.add(newFile);
-
-          // Replace the original file in the input element with the new File object
-          self.input[0].files = dataTransfer.files;
-
-          // Close the modal
-          $('#cropper-modal').modal('hide');
-          }, file.type);
-        });
-        //When the "Cancel" button is clicked, clears the value of the file input field
-        $('#cancel-crop').click(function() {
-          self.input.val('');
-          $('#cropper-modal').modal('hide');
-        });
-
+        self._showModalAndInitialiseCropper(e);
+     
       }
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.options.file);
       reader.onerror = function(error) {
         console.log('Error reading file:', error);
       }
-         
     },
 
-  
+    _showModalAndInitialiseCropper: function(e) {
+      var imageUrl = e.target.result;
+      $("#cropper-output-image").attr("src", imageUrl);
+      // Open the modal
+      $('#cropper-modal').modal('show');
+      $('#cropper-modal').on('shown.bs.modal', () => {
+        if (this.options.cropper !== null) {
+          this.options.cropper.destroy();
+        }
+       // Initialize the cropper
+       this._initializeCropper();
+      });
+      // Set click handlers for the "Apply" and "Cancel" buttons
+      this._setModalButtonHandlers();
+    },
 
+    _initializeCropper: function() {
+      this.options.cropper = new Cropper(document.getElementById('cropper-output-image'), {
+        aspectRatio: 1,
+        viewMode: 2,
+        responsive: true,
+        modal: false,
+        minContainerHeight: 250,
+      });
+    },
+
+    _setModalButtonHandlers: function() {
+      $('#apply-crop').click(() => {
+        this._handleApplyCrop();
+      });
+    
+      $('#cancel-crop').click(() => {
+        this._handleCancelCrop();
+      });
+    },
+
+    _handleApplyCrop: function() {
+      var canvas = this.options.cropper.getCroppedCanvas();
+      canvas.toBlob((blob) => {
+        // Create a new File object with the same name as the original file
+        var newFile = new File([blob], this.options.file.name, {type: this.options.file.type});
+    
+        // Replace the original file in the input element with the new File object
+        this._replaceInputFile(newFile);
+    
+        // Close the modal
+        $('#cropper-modal').modal('hide');
+      }, this.options.file.type);
+    },
+
+    _handleCancelCrop: function() {
+      // clear file input
+      this.input.val('');
+      this._showOnlyButtons();
+      // clear file url input
+      this.field_url_input.val('');
+      this.field_url_input.prop('readonly', false);
+
+      this.field_clear.val('true');
+      // close modal
+      $('#cropper-modal').modal('hide');
+    },
+
+    _replaceInputFile: function(newFile) {
+      // Creates a new DataTransfer object because due to security reasons
+      // we can't modify the Filelist of the file input field; it is read-only
+      var dataTransfer = new DataTransfer();
+      dataTransfer.items.add(newFile);
+    
+      // Replace the original file in the input element with the new File object
+      this.input[0].files = dataTransfer.files;
+    },
+
+    _onModalHide: function() {
+      this.options.cropper.destroy();
+      this.options.cropper = null;
+      // clear file name
+      this.field_url_input.val('');
+    },
+    
     /* Show only the buttons, hiding all others
      *
      * Returns nothing.
