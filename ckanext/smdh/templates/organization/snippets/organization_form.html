@@ -1,4 +1,5 @@
 {% import 'macros/form.html' as form %}
+{% import 'macros/custom_form.html' as c_form %}
 
 <form id='organization-edit-form' class="dataset-form" method="post" data-module="basic-form" enctype="multipart/form-data">
   {% block error_summary %}
@@ -36,7 +37,7 @@
     {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
     {% set is_url = data.image_url and data.image_url.startswith('http') %}
 
-    {{ form.image_upload(data, errors, is_upload_enabled=h.uploads_enabled(), is_url=is_url, is_upload=is_upload) }}
+    {{ c_form.image_upload(data, errors, is_upload_enabled=h.uploads_enabled(), is_url=is_url, is_upload=is_upload) }}
 
   {% endblock %}
 
