@@ -210,11 +210,6 @@ body {
   border: 1.5px solid var(--brand-colour-blue-light);
 }
 
-.upload-btn {
-  width:100px;
-  height: 50px;
-}
-
 /* Org Description */
 .media-description {
   word-break: keep-all;
@@ -222,12 +217,9 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.media-view {
-  /* border: 2px solid var(--brand-colour-yellow); */
-}
 
 /* Cropper */
-.cropper-modal.in {
+.cropper.in {
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -238,40 +230,31 @@ img#cropper-output-image {
   max-width: 100%;
 }
 .modal-dialog {
-  /* max-width: 500px !important;
-  height: 80%;
-  padding: 30px;
-  display: flex; */
   align-items: center;
 }
 .modal-header {
   text-align: center;
 }
-.modal-content {
-  /* width: 80%; */
-}
+
 .cropper-view-box,
 .cropper-face {
   border-radius: 4px 4px 4px 4px !important;
 }
 
-/* The css styles for `outline` do not follow `border-radius` on iOS/Safari (#979). */
-.cropper-view-box {
-  outline: 0;
-  box-shadow: 0 0 0 1px #39f;
-}
-.container-cropper{
-  background-color: white;
+.cropper-img-preview-container {
+  display: flex;
   justify-content: center;
-  justify-items: center;
-  /* width: 80%;
-  height: auto; */
 }
-.cropper-container {
-  width: 100%;
-  height:100%;
+#preview {
+  overflow: hidden;
+  border:  2px solid var(--brand-colour-blue);
 }
-.cropper-preview-container {
-  /* display: flex;
-  flex-direction: column; */
+#btn-select-image.hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  cursor: pointer;
+}
+#btn-select-image {
+  cursor: pointer;
 }
