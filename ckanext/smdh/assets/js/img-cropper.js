@@ -325,8 +325,9 @@
       // we do not end up clearing the input on modal.hide() event handler
       this.applyClicked = true;
       this.options.canvas = this.options.cropper.getCroppedCanvas({
-        width: 300,
-        height: 300
+        width: 500,
+        height: 500,
+        fillColor: "#ffffff"
       });
       this.options.canvas.toBlob((blob) => {
         // Create a new File object with the same name/type as the original file
