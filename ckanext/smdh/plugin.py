@@ -6,6 +6,7 @@ import ckanext.smdh.helpers as helpers
 class SmdhPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers, inherit=True)
+    plugins.implements(plugins.IPackageController, inherit=True)
 
     # IConfigurer
 
@@ -32,3 +33,12 @@ class SmdhPlugin(plugins.SingletonPlugin):
         return {'isAdmin': helpers.isAdmin,
         'getTracking': helpers.getTracking
         }
+
+    # IPackageController
+    def before_search(self, data_dict):
+        if not data_dict.get('sort'):
+            if toolkit.asbool(toolkit.config.get("ckan.tracking_enabled")):
+                data_dict['sort'] = 'views_recent desc'
+            else:
+                data_dict['sort'] = 'score desc, date_last_modified desc'
+        return data_dict
