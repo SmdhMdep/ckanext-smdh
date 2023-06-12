@@ -310,6 +310,13 @@
       $("#cancel-crop").off("click").click(() => {
         this._handleCancelCrop();
       });
+      $('#zoom-in').off().click(() => {
+        this.options.cropper.zoom(0.1); // Zoom in by 10%
+      });
+      
+      $('#zoom-out').off().click(() => {
+        this.options.cropper.zoom(-0.1); // Zoom out by 10%
+      });
     },
 
     _handleApplyCrop: function() {
