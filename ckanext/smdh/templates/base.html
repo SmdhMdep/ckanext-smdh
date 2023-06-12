@@ -7,5 +7,11 @@
     with when the toolkit.add_resource() function was called.
     'smdh-css' is the name to the Webassets bundle file,
     registered inside webassets.yml file. #}
-  {% asset 'smdh/smdh-css' %}
+  {% asset 'smdh/smdh_css' %}
+  {% asset 'smdh/smdh_img_cropper_css' %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {% asset 'smdh/smdh_img_cropper' %}
 {% endblock %}

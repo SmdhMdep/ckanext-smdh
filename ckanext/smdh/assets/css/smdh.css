@@ -199,10 +199,62 @@ body {
 .img-container {
   display: block;
   width: 148px;
-  height: 150px;
+  height: 148px;
+  
 }
 /* Having a parent element with fixed size, this img can now take the full size of its parent */
 .img-responsive.media-image {
   width: 100%;
   height: 100%;
+  border-radius: 4px 4px 4px 4px;
+  border: 1.5px solid var(--brand-colour-blue-light);
+}
+
+/* Org Description */
+.media-description {
+  word-break: keep-all;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Cropper */
+.cropper.in {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+img#cropper-select-image, 
+img#cropper-output-image {
+  display: block;
+  max-width: 100%;
+}
+.modal-dialog {
+  align-items: center;
+}
+.modal-header {
+  text-align: center;
+}
+
+.cropper-view-box,
+.cropper-face {
+  border-radius: 4px 4px 4px 4px !important;
+}
+
+.cropper-img-preview-container {
+  display: flex;
+  justify-content: center;
+}
+#preview {
+  overflow: hidden;
+  border:  2px solid var(--brand-colour-blue);
+}
+#btn-select-image.hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  cursor: pointer;
+}
+#btn-select-image {
+  cursor: pointer;
 }
