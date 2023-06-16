@@ -15,6 +15,7 @@
       canvas: null,
       file: null,
       self: null,
+      fileCropped: null,
     },
 
     /* Should be changed to true if user modifies resource's name
@@ -194,11 +195,17 @@
      */
     _onRemove: function() {
       this._showOnlyButtons();
-
       this.field_url_input.val('');
       this.field_url_input.prop('readonly', false);
-
       this.field_clear.val('true');
+      // remove the cropped img preview from the form in case the user will 
+      // have another go at selecting/editing their image
+      $('#form-img-preview-container').remove();
+      this.options.cropper.destroy();
+      this.options.cropper = null;
+      // we don't need the canvas anymore
+      this.options.canvas = null;
+      this.options.file = null;
     },
 
    
@@ -211,6 +218,7 @@
       $("#file-type-error").remove();
       var self = this;
       this.options.file = this.input[0].files[0];
+      // we only accept these file types
       validFileTypes = ["image/jpeg", "image/jpg", "image/png", "image/svg+xml"];
       if ( this.options.file && validFileTypes.includes(this.options.file.type)) {
       var file_name = this.input.val().split(/^C:\\fakepath\\/).pop();
@@ -223,31 +231,24 @@
         var fName = file_name.match(/[^\\\/]+$/);
         file_name = fName ? fName[0] : file_name;
       }
-
       this.field_url_input.val(file_name);
       this.field_url_input.prop('readonly', true);
-
       this.field_clear.val('');
-
       this._showOnlyFieldUrl();
-
       this._autoName(file_name);
-
       this._updateUrlLabel(this._('File'));
 
-      // we onyl accept these file types
-        var reader = new FileReader();
-        
-  
-        reader.onload = function(e) {
-          self._showModalAndInitialiseCropper(e);
-       
-        }
-        reader.readAsDataURL(this.options.file);
-        reader.onerror = function(error) {
-          $('<div id="file-type-error" class="error-inline"><i class="fa fa-warning"></i> ' +
-          this._("Error reading file. Please try again.") + '</div>').appendTo(this.field_image);
-        }
+      //  Cropping related operations
+      var reader = new FileReader();
+      
+      reader.onload = function(e) {
+        self._showModalAndInitialiseCropper(e);
+      }
+      reader.readAsDataURL(this.options.file);
+      reader.onerror = function(error) {
+        $('<div id="file-type-error" class="error-inline"><i class="fa fa-warning"></i> ' +
+        this._("Error reading file. Please try again.") + '</div>').appendTo(this.field_image);
+      }
       } else {
         $('<div id="file-type-error" class="error-inline"><i class="fa fa-warning"></i> ' +
           this._("Invalid file type. Please select a .jpg, .jpeg, .png, or .svg file.") + '</div>').appendTo(this.field_image);
@@ -255,17 +256,13 @@
     },
 
     _showModalAndInitialiseCropper: function(e) {
-      var imageUrl = e.target.result;
-      //  clear the previous image
-      $("#cropper-output-image").attr("src", "");
-      // TODO: find better way to avoid seeing previous image for a flash second 
-      // which happens only when applying the crop, and then removing the image from the
-      //  UI's "Remove" button, but doesn't happen when clicking the "Cancel" button
-      $("#cropper-output-image").hide();
-      $("#cropper-output-image").attr("src", imageUrl);
-      $("#cropper-output-image").show();
+      if (!this.isEditing) {
+        var imageUrl = e.target.result;
+        $("#cropper-output-image").attr("src", imageUrl);
+      } else {
+        $("#cropper-output-image").attr("src", this.options.canvas.toDataURL());
+      }
       // Open the modal
-      $("#cropper-modal").off("shown.bs.modal"); // remove the event listener before applying it again
       $("#cropper-modal").modal("show");
 
       $("#cropper-modal").on("shown.bs.modal", () => {
@@ -276,12 +273,11 @@
         this._initializeCropper(e);
         
       });
-      
       // Set click handlers for the "Apply" and "Cancel" buttons
       this._setModalButtonHandlers();
     },
 
-    _initializeCropper: function() {
+    _initializeCropper: function(e) {
       var modalBodyWidth = $("#modal-cropper-body").width();
       var modalBodyHeight = $("#modal-cropper-body").height();
       this.options.cropper = new Cropper(document.getElementById("cropper-output-image"), {
@@ -331,22 +327,42 @@
       });
       this.options.canvas.toBlob((blob) => {
         // Create a new File object with the same name/type as the original file
-        var newFile = new File([blob], this.options.file.name, {type: this.options.file.type});
-        
+        var newFile = new File([blob], this.options.file.name, {type: this.options.file.type});     
         // Replace the original file in the input element with the new File object
         this._replaceInputFile(newFile);
-        
       }, this.options.file.type);
       // Close the modal
       $("#cropper-modal").modal("hide");
-      // we don't need the canvas anymore
-      this.options.canvas = null;
+      $("#cropper-modal").on("hidden.bs.modal", () => {
+        this._onModalHide();
+      });
+      // creates the div element to hold an img preview to show the user in the form,
+      // plus adds the Edit button underneath with a click handler attached
+      var imageUrl = this.options.canvas.toDataURL("image/png");
+      var formImgPreview = 
+      $('<img id="form-img-preview" style="height: 150px; width: 150px; border-radius: 4px; border: 2px solid var(--brand-colour-blue);" src="'
+      + imageUrl + '" alt="Cropped Image preview" />');
+      var editButton = $('<button class="btn btn-primary" type="button" id="crop-edit-btn">Edit</>');
+      var formImgPreviewContainer = $('<div id="form-img-preview-container"><h6>Selected image preview</h6></div>');
+      formImgPreviewContainer.append(formImgPreview);
+      editButton.appendTo(formImgPreviewContainer);
+      formImgPreviewContainer.appendTo(this.field_url);
+      $("#crop-edit-btn").off("click").click(() => {
+        this._handleEditCrop();
+      })
+    },
+
+    _handleEditCrop: function() {
+      this.isEditing = true;
+      $('#form-img-preview-container').remove();
+      this._showModalAndInitialiseCropper();
     },
     
     _handleCancelCrop: function() {
       this.applyClicked = false;
-      $("#cropper-modal").off("hidden.bs.modal");
-      // $('#cropper-modal').modal('hide');
+      this.isEditing = false;
+      // we don't need to call modal.hide() here because the Cancel button has the
+      // attribute data-dimiss already wich triggers bellow event
       $("#cropper-modal").on("hidden.bs.modal", () => {
         this._onModalHide();
       });
@@ -357,16 +373,23 @@
       // we can't modify the Filelist of the file input field; it is read-only
       var dataTransfer = new DataTransfer();
       dataTransfer.items.add(newFile);
-      
       // Replace the original file in the input element with the new File object
       this.input[0].files = dataTransfer.files;
     },
 
+    /* Called on either clicking the Apply/Cancel buttons on the Cropping modal
+     *  Cleans modal event handlers, and depending on the button clicked,
+     * cleans the input fields and cropper artefacts and redisplays the Upload/Link buttons
+     */
     _onModalHide: function() {
-      this.options.cropper.destroy();
-      this.options.cropper = null;
-      // we don't need the canvas anymore
-      this.options.canvas = null;
+      // remove the event handlers if existing, before applying them again next time user opens/closes modal
+      // (e.g. If modal was previously opened and closed)
+      // if event listeners are not removed and if user keep closing and reopning the modal, multiple event 
+      // handlers will be attached to the same element, resulting in unexpected and odd behaviours
+      $("#cropper-modal").off("shown.bs.modal");
+      $("#cropper-modal").off("hidden.bs.modal");
+      $("#cropper-output-image").attr("src", "");
+      $("#preview").attr("src", "");
       // we only cear the input value if the crop was cancelled
       if (!this.applyClicked) {
         // clear file name
@@ -375,11 +398,14 @@
         // clear file url input
         this.field_url_input.val("");
         this.field_url_input.prop("readonly", false);
-  
         this.field_clear.val("true");
+
+        // destroy cropper related artefacts
+        this.options.cropper.destroy();
+        this.options.cropper = null;
+        this.options.file = null;
+        this.options.canvas=null;
       }
-      $("#cropper-output-image").attr("src", "");
-      $("#preview").attr("src", "");
     },
     
     /* Show only the buttons, hiding all others
