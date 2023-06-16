@@ -218,7 +218,8 @@ body {
   text-overflow: ellipsis;
 }
 
-/* Cropper */
+/* Cropper */ 
+
 .cropper.in {
   display: flex !important;
   align-items: center;
@@ -264,4 +265,12 @@ img#cropper-output-image {
   gap: 1em;
   justify-content: center;
   padding-top: 0.5em;
+}
+#form-img-preview-container {
+  display: flex;
+  gap: 0.5em;
+  flex-direction: column;
+}
+#crop-edit-btn {
+  width: max-content;
 }
