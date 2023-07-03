@@ -39,11 +39,6 @@ body[data-site-root] {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  /* background: transparent; */
-  /* background: -moz-linear-gradient(to top, hsla(195, 100%, 41%, 1) 5%, hsla(0, 0%, 100%, 1) 15%);
-  background: -webkit-linear-gradient(to top, hsla(195, 100%, 41%, 1) 5%, hsla(0, 0%, 100%, 1) 15%);
-  background: linear-gradient(to top, hsla(195, 100%, 41%, 1) 5%, hsla(0, 0%, 100%, 1) 15%);
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FFFFFF", endColorstr="#009CD1", GradientType=1 ); */
 }
 
 .flex-container {
@@ -92,8 +87,11 @@ nav.account.not-authed ul li a {
 /* The text and icons in the user account info. */
 .account-masthead .account ul li a {
   color: var(--text-dark-grey);
-  
-  /* font-size: 0.9em; */
+}
+.masthead .logo img {
+  height: 70px;
+  max-height: 70px;
+  width: 169.5px;
 }
 
 /* The user account info text and icons, when the user's pointer is hovering
@@ -451,7 +449,6 @@ div.main.hero {
 ==================================== */
 .dataset-item {
   background: rgba(255, 255, 255, 0.709);
-  border-radius: 5px;
   padding: 0.5em;
   border-bottom: 2px dotted var(--brand-colour-blue);
 }
