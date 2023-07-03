@@ -1,16 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap');
 
 :root {
-  --brand-colour-yellow: #FFCB03;
+  --brand-colour-yellow: #F8C623;
   --brand-colour-yellow-medium-opacity: #ffcd0367;
   --brand-colour-yellow-low-opacity: #ffcd0344;
   --brand-colour-black: #020000;
-  --brand-colour-pink: #EF528A;
-  --brand-colour-blue: #00A6E4;
-  --brand-colour-blue-light: #C2E3F6;
-  --brand-colour-green: #8DC63F;
-  --brand-colour-steel-grey: #9CBCCD;
-  --brand-colour-stone-beige: #E9E4DD;
+  --brand-colour-pink: #EF5089;
+  --brand-colour-blue: #009CD1;
+  --brand-colour-blue-dark: #01516b;
+  --brand-colour-blue-medium: #027399;
+  --brand-colour-blue-light: #C0E2F5;
+  --brand-colour-blue-light-alpha-35: #c0e2f5cf;
+  --brand-accent: #734e36;
+  --brand-accent2: #d7d9e3;
+  --brand-colour-green: #8BC53E;
+  --brand-colour-rock-blue: #9BBCCE;
+  --brand-colour-satin-linen: #E9E5DE;
+  --text-dark-grey: #505050;
   --brand-font-family: 'Raleway', sans-serif;
 
 
@@ -21,77 +27,109 @@
   --breakpoint-xl: 1200px;
 }
 
-body {
+html {
+  height: 100vh;
+  max-height: 100vh;
+}
+body[data-site-root] {
   font-family: var(--brand-font-family);
   font-weight: 300;
+  background: white;
+  background: url(/hero-bg.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* background: transparent; */
+  /* background: -moz-linear-gradient(to top, hsla(195, 100%, 41%, 1) 5%, hsla(0, 0%, 100%, 1) 15%);
+  background: -webkit-linear-gradient(to top, hsla(195, 100%, 41%, 1) 5%, hsla(0, 0%, 100%, 1) 15%);
+  background: linear-gradient(to top, hsla(195, 100%, 41%, 1) 5%, hsla(0, 0%, 100%, 1) 15%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FFFFFF", endColorstr="#009CD1", GradientType=1 ); */
 }
 
 .flex-container {
   display: flex;
   flex-direction: row;
   gap: 2em;
-  /* justify-content: space-between; */
   align-items: top;
   padding: 0;
   margin: 0;
 }
-
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.centered {
+  justify-content: center;
+  align-items: center;
+}
 
 /* =====================================================
    The "account masthead" bar across the top of the site
    ===================================================== */
 
 .account-masthead {
-  background-color: var(--brand-colour-yellow);
+  background: #ffffff;
+  padding-top: 0.3em;
 }
 
 /* The "bubble" containing the number of new notifications. */
 .account-masthead .account .notifications a span {
-  background-color: black;
+  background-color: var(--text-dark-grey);
 }
 
-/* .account-masthead .account .notifications a span:hover {
-  background-color: var(--brand-colour-yellow);
-  color: var(--brand-colour-black);
-} */
 /*  The list elements of the account masthead */
 .account-masthead .account ul li {
   display: block;
   float: left;
   border-left: none;
+  margin-left: 0.5em;
 }
-
+nav.account.not-authed ul li a {
+  border-radius: 4px;
+  border: 2px double var(--brand-colour-blue);
+}
 /* The text and icons in the user account info. */
 .account-masthead .account ul li a {
-  color: var(--brand-colour-black);
+  color: var(--text-dark-grey);
+  
+  /* font-size: 0.9em; */
 }
 
 /* The user account info text and icons, when the user's pointer is hovering
    over them. */
 .account-masthead .account ul li a:hover {
-  color: var(--brand-colour-yellow);
-  background-color: black;
+  background-color: var(--brand-colour-blue);
+  border-radius: 4px;
+  color: white;
 }
 
 .account-masthead .account ul li a:hover>.badge {
-  background-color: var(--brand-colour-yellow);
-  color: var(--brand-colour-black);
+  background-color: white;
+  color: var(--brand-colour-blue);
 }
 
 
 /* ========================================================================
-   The main masthead bar that contains the site logo, nav links, and search
-   ======================================================================== */
-
+  The main masthead bar that contains the site logo, nav links, and search
+======================================================================== */
+button.navbar-toggle {
+  color: var(--brand-colour-blue);
+}
 .masthead {
-  background-color: #000000;
+  background: #ffffff;
+  box-shadow: 0px 4px 3px 1px rgb(11 10 10 / 27%);
 }
 
+.masthead .navigation .nav-pills li a {
+  color: var(--text-dark-grey);
+  font-size: 1.2em;
+  font-weight: 600;
+}
 /* The "navigation pills" in the masthead (the links to Datasets,
    Organizations, etc) when the user's pointer hovers over them. */
 .masthead .navigation .nav-pills li a:hover {
-  background-color: var(--brand-colour-yellow-low-opacity);
-  ;
+  background-color: var(--brand-colour-blue);
   color: white;
 }
 
@@ -99,8 +137,12 @@ body {
    the "Datasets" link is active). */
 .masthead .navigation .nav-pills li.active a,
 .masthead .navigation .nav-pills li a:focus {
-  background-color: var(--brand-colour-yellow-medium-opacity);
-  /* color: var(--brand-colour-black); */
+  background-color: var(--brand-colour-blue);
+  color: white;
+}
+.masthead .navigation .nav-pills li.active:hover a,
+.masthead .navigation .nav-pills li a:focus {
+  background-color: var(--brand-colour-blue-medium);
 }
 
 /* The "box shadow" effect that appears around the search box when it
@@ -112,8 +154,8 @@ body {
 
 
 /* ===========================================
-   The content in the middle of the front page
-   =========================================== */
+  The content in the middle of the front page
+=========================================== */
 
 /* Remove the "box shadow" effect around various boxes on the page. */
 .box {
@@ -125,101 +167,304 @@ body {
 .hero .box {
   border: none;
 }
-
-/* Change the colors of the "Search Your Data" box. */
-.homepage .module-search .module-content {
-  color: rgb(68, 68, 68);
-  background-color: white;
-}
-
-/* Change the background color of the "Popular Tags" box. */
-.homepage .module-search .tags {
-  background-color: rgb(61, 61, 61);
-}
-
 /* Remove some padding. This makes the bottom edges of the "Welcome to CKAN"
-   and "Search Your Data" boxes line up. */
+and "Search Your Data" boxes line up. */
 .module-content:last-child {
   padding-bottom: 0px;
 }
-
 .module-heading {
-  background-color: var(--brand-colour-stone-beige);
+  background-color: var(--brand-colour-blue-light);
 }
-
-.homepage .module-search {
-  padding: 0px;
+.nav-item.active > a, .nav-aside li.active a {
+  background: var(--brand-colour-blue);
 }
-
-/* Add a border line between the top and bottom halves of the front page. */
-.homepage [role="main"] {
-  border-top: 1px solid rgb(204, 204, 204);
+.nav-item.active > a, .nav-aside li.active a::before {
+  background: var(--brand-colour-blue);
 }
-
+.nav-item.active > a:before, .nav-aside li.active a:before {
+  border-left-color: var(--brand-colour-blue);
+}
+.homepage .row {
+  margin-top: 1em;
+}
+.layout-container {
+  padding: 0;
+}
+div.main {
+  background: transparent;
+}
+div.main.hero {
+  background: transparent;
+}
+.flex-column.hero-title {
+  padding: 1em;
+  border-radius: 5px;
+}
+.hero-title.outer-hero {
+  position: relative;
+  background: var(--brand-colour-blue-light-alpha-35);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.hero-title.inner-hero {
+  background: rgba( 255, 255, 255, 0.15 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 2px );
+  -webkit-backdrop-filter: blur( 2px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.hero-title.inner-hero h1,
+.hero-title.inner-hero h3,
+.hero-title.inner-hero p {
+  text-align: center;
+}
+.hero-title.inner-hero h1 {
+  font-size: 2em;
+}
+.hero-title.inner-hero p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 2em;
+  margin-left: 0.8em;
+  margin-right: 0.8em;
+  font-size: 1.2em;
+}
+@media (min-width: 992px) {
+  .hero-title.inner-hero h1 {
+    font-size: 5em;
+  }
+  .hero-title.inner-hero p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    line-height: 2em;
+    margin-left: 3.8em;
+    margin-right: 3.8em;
+    font-size: 1.6em;
+  }
+}
+.hero-icon {
+  position: absolute;
+  max-width: 7em;
+}
+.hero-icon.explorer-icon {
+  bottom: -3%;
+  left: 0
+}
+.hero-icon.asset-icon {
+  top: -3%;
+  right: 0;
+}
+@media (min-width: 992px) {
+  .hero-icon {
+    max-width: 14em
+  }
+}
+@media (min-width: 992px) {
+  .homepage [role=main] {
+    padding-top: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+}
 .btn-primary {
-  color: var(--brand-colour-black);
-  background-color: var(--brand-colour-yellow);
-  border-color: var(--brand-colour-yellow-low-opacity);
+  color: white;
+  background-color: var(--brand-colour-blue);
+  border-color: var(--brand-colour-blue-medium);
 }
-
-/* The Popular tags banner in the middle of home page */
+/* Change the background color of the "Popular Tags" box. */
 .homepage .module-search .tags {
   background-color: var(--brand-colour-blue-light);
-  color: #000;
+}
+.homepage .module-search h3 {
+  text-align: center;
+}
+.homepage .module-search {
+  background: rgba( 255, 255, 255, 0.1 );
+  box-shadow: 0 4px 10px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 5px );
+  -webkit-backdrop-filter: blur( 5px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+/* Change the colors of the "Search Your Data" box. */
+.homepage .module-search .module-content {
+  background: transparent;
+  color: var(--text-dark-grey);
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+/* Statistics box */
+.homepage .stats {
+  background: rgba( 255, 255, 255, 0.1 );
+  box-shadow: 0 5px 10px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 5px );
+  -webkit-backdrop-filter: blur( 5px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.homepage .stats ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.homepage .stats h3 {
+  text-align: center;
+}
+/* Breadcrumbs */
+.toolbar .breadcrumb a {
+  color: var(--text-dark-grey);
+}
+.toolbar .breadcrumb a:hover {
+  color: var(--brand-colour-blue-medium);
+  text-decoration: none;
+}
+@media (max-width: 767px) {
+  .toolbar .breadcrumb a {
+      color: initial;
+      text-shadow: none;
+  }
+}
+.row.wrapper {
+  background: rgba( 255, 255, 255, 0.5 );
+  backdrop-filter: blur( 5px );
+  -webkit-backdrop-filter: blur( 5px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 /* ====================================
    The footer at the bottom of the site
-   ==================================== */
+==================================== */
 
-.site-footer,
-body {
-  background-color: rgb(0, 0, 0);
+.site-footer {
+  background: rgba( 255, 255, 255, 0.1 );
+  box-shadow: 0 3px 9px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 5px );
+  -webkit-backdrop-filter: blur( 5px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  /* background: transparent; */
+  /* padding: 1em; */
 }
-
 /* The text in the footer. */
 .site-footer,
 .site-footer label,
-.site-footer small {
-  color: rgba(255, 255, 255, 0.6);
+.site-footer small, a {
+  color: var(--text-dark-grey);
 }
-
 /* The link texts in the footer. */
 .site-footer a {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-dark-grey);
+  font-weight: bold;
+  background: transparent;
 }
+.attribution .ckan-footer-logo {
+  background: url("/ckan_multi_logo_svg.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+/* ====================================
+           Organization list
+  ==================================== */
 
+.media-grid-org {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  gap: 1em;
+  padding-left: 0px;
+}
 /* ====================================
            Organization item
   ==================================== */
-
-  /* Added a div container for the image, which takes the dimensions of 
-    its parent element, <li>. whilst accounting for the padding [178px - (2x15px)] 
-    and sets a fixed height*/
-.img-container {
+  .media-item-org {
+    padding: 0.5em;
+  /* border: 1.5px solid var(--brand-colour-blue); */
+  border-radius: 5px;
+  background: #009dd130;
+}
+.media-item-org:hover {
+  transform: scale(1.03, 1.03);
+  box-shadow: 0px 4px 6px 1px #009dd171;
+}
+.org-card {
   display: block;
-  width: 148px;
-  height: 148px;
-  
-}
-/* Having a parent element with fixed size, this img can now take the full size of its parent */
-.img-responsive.media-image {
   width: 100%;
-  height: 100%;
-  border-radius: 4px 4px 4px 4px;
-  border: 1.5px solid var(--brand-colour-blue-light);
+  height: 100px;
+}
+.org-card:hover {
+  text-decoration: none;
+}
+.org-card:focus {
+  text-decoration: none;
 }
 
+.org-card-content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  gap: 1em;
+  align-items: flex-start;
+}
+.org-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+.org-card-body .count {
+  text-align: right;
+  margin-right: 0.5em;
+}
+.org-card-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 4px 4px 4px 4px;
+  justify-self: center;
+  align-self: center;
+}
 /* Org Description */
 .media-description {
   word-break: keep-all;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
-
-/* Cropper */ 
-
+@media (max-width: 992px) {
+  .org-card-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px 4px 4px 4px;
+  }
+}
+@media (max-width: 767px) {
+  .media-item-org {
+    padding: 0.5em;
+    border-radius: 5px;
+    height: fit-content;
+  }
+  .org-card-img {
+    width: 65px;
+    height: 65px;
+    border-radius: 4px 4px 4px 4px;
+  }
+}
+/* ====================================
+           Dataset item
+==================================== */
+.dataset-item {
+  background: rgba(255, 255, 255, 0.709);
+  border-radius: 5px;
+  padding: 0.5em;
+  border-bottom: 2px dotted var(--brand-colour-blue);
+}
+.dataset-item ul {
+  padding-bottom: 0.5em;
+}
+.dataset-private.label {
+  background: var(--brand-colour-pink);
+  color: white;
+}
+/* ====================================
+Cropper
+==================================== */
 .cropper.in {
   display: flex !important;
   align-items: center;
@@ -249,6 +494,7 @@ img#cropper-output-image {
 #preview {
   overflow: hidden;
   border:  2px solid var(--brand-colour-blue);
+  border-radius: 4px;
 }
 #btn-select-image.hover {
   color: #333;

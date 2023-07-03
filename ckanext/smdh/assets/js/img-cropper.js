@@ -15,7 +15,6 @@
       canvas: null,
       file: null,
       self: null,
-      fileCropped: null,
     },
 
     /* Should be changed to true if user modifies resource's name
@@ -95,7 +94,7 @@
         .on('mouseout', this._onInputMouseOut)
         .on('change', this._onInputChange)
         .prop('title', this._('Upload a file on your computer'))
-        .prop('accept', '.jpg, .jpeg, .png, .svg')
+        .prop('accept', '.jpg, .jpeg, .png')
         .css('width', this.button_upload.outerWidth());
 
       // Fields storage. Used in this.changeState
@@ -201,7 +200,9 @@
       // remove the cropped img preview from the form in case the user will 
       // have another go at selecting/editing their image
       $('#form-img-preview-container').remove();
-      this.options.cropper.destroy();
+      if (this.options.cropper) {
+        this.options.cropper.destroy();
+      }
       this.options.cropper = null;
       // we don't need the canvas anymore
       this.options.canvas = null;
@@ -219,7 +220,7 @@
       var self = this;
       this.options.file = this.input[0].files[0];
       // we only accept these file types
-      validFileTypes = ["image/jpeg", "image/jpg", "image/png", "image/svg+xml"];
+      var validFileTypes = ["image/jpeg", "image/jpg", "image/png"];
       if ( this.options.file && validFileTypes.includes(this.options.file.type)) {
       var file_name = this.input.val().split(/^C:\\fakepath\\/).pop();
 
@@ -251,7 +252,7 @@
       }
       } else {
         $('<div id="file-type-error" class="error-inline"><i class="fa fa-warning"></i> ' +
-          this._("Invalid file type. Please select a .jpg, .jpeg, .png, or .svg file.") + '</div>').appendTo(this.field_image);
+          this._("Invalid file type. Please select a .jpg, .jpeg, or .png file.") + '</div>').appendTo(this.field_image);
       }
     },
 
@@ -266,6 +267,9 @@
       $("#cropper-modal").modal("show");
 
       $("#cropper-modal").on("shown.bs.modal", () => {
+        // Remove the backdrop-filter property as it conflicts with the modal-backdrop element 
+        //  due to stacking contexts; this will probably change with a newer version of Bootstrap (3+)
+        $('.row.wrapper').css('backdrop-filter', 'none');
         if (this.options.cropper !== null) {
           this.options.cropper.destroy();
         }
@@ -284,7 +288,7 @@
         aspectRatio: 1,
         viewMode: 0,
         responsive: true,
-        modal: true,
+        modal: false,
         minContainerHeight: 250,
         crop: function(event) {
           var canvas = this.cropper.getCroppedCanvas({
@@ -323,7 +327,7 @@
       this.options.canvas = this.options.cropper.getCroppedCanvas({
         width: 500,
         height: 500,
-        fillColor: "#ffffff"
+        // fillColor: "#ffffff"
       });
       this.options.canvas.toBlob((blob) => {
         // Create a new File object with the same name/type as the original file
@@ -382,6 +386,9 @@
      * cleans the input fields and cropper artefacts and redisplays the Upload/Link buttons
      */
     _onModalHide: function() {
+      // Reapply the blur effect of the background that was removed on opening the modal because
+      // of conflicting with the modal-backdrop element
+      $('.row.wrapper').css('backdrop-filter', 'blur(5px)');
       // remove the event handlers if existing, before applying them again next time user opens/closes modal
       // (e.g. If modal was previously opened and closed)
       // if event listeners are not removed and if user keep closing and reopning the modal, multiple event 

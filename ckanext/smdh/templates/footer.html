@@ -1,4 +1,9 @@
 {% ckan_extends %}
+{% block footer_content %}
+
+{{ super() }}
+
+{% endblock footer_content %}
 {% block footer_attribution %}
 <div class="flex-container">
     <span>
@@ -13,7 +18,7 @@
             {% trans %}
                 <strong>Developed by <a href="https://www.hartree.stfc.ac.uk">
             {% endtrans %}
-            <img src="{{ h.url_for_static('/base/images/logo-white.svg') }}" alt="STFC Hartree Centre"></a></strong>
+            <img src="{{ h.url_for_static('/logo_dark_grey_hartree.svg') }}" alt="STFC Hartree Centre"></a></strong>
             
         </p>
     </span>
@@ -24,4 +29,4 @@
 {% block footer_links_ckan %}
     <li><a href="https://mdep.smdh.uk/dataset/77498c71-4d64-4d56-b75b-f5c2c2c9aa80/resource/ede3139c-3058-43e8-a081-bdebff163b74/download/smdh-aep-user-guide.pdf">{{ _('Help') }}</a></li>
     {{ super() }}
-{% endblock %}
+{% endblock footer_links_ckan %}
