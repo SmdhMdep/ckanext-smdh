@@ -5,7 +5,10 @@ from ckan.plugins import toolkit
 c = toolkit.c
 
 def isAdmin():
-    return c.userobj.sysadmin
+    if c.userobj:
+        return c.userobj.sysadmin
+    else:
+        return False
 
 def getTracking(packageid):
     data = {'id': packageid, "include_tracking": True}
