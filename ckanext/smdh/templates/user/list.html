@@ -6,15 +6,15 @@
       {% block users_list_inner %}
         {% for user in page.items %}
           <li>{{ h.linked_user(user['name'], maxlength=20) }}</li>
-          
         {% endfor %}
       {% endblock %}
     </ul>
   {% else %}
-    <p>Sorry you do not have permissions to view all users</p>
+    <div class="alert alert-error">
+      <p>Sorry you do not have permissions to view all users</p>
+    </div>
   {% endif %}
 {% endblock %}
-
 
 {% block page_pagination %}
   {% if h.isAdmin() %}  
