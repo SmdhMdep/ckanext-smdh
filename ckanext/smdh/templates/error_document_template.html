@@ -1,0 +1,19 @@
+{% ckan_extends %}
+
+
+{% block primary %}
+  <article class="module">
+    <div class="module-content">
+      {% if name %}
+        <h1>{{ code }} {{ name }}</h1>
+      {% endif %}
+
+      <div class="alert alert-error">
+        <h2>If this error is causing problems, please contact SMDH support at support@smdh.uk</h2>
+        <h3>Screenshot this error page and include it in the email</h3>
+        <p>{{content}}</p>
+      </div>
+    </div>
+  </article>
+{% endblock %}
+
