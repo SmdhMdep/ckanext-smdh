@@ -1,0 +1,23 @@
+{% ckan_extends %}
+
+{% block users_list %}
+  {% if h.isAdmin() %}  
+    <ul class="user-list">
+      {% block users_list_inner %}
+        {% for user in page.items %}
+          <li>{{ h.linked_user(user['name'], maxlength=20) }}</li>
+        {% endfor %}
+      {% endblock %}
+    </ul>
+  {% else %}
+    <div class="alert alert-error">
+      <p>Sorry you do not have permissions to view all users</p>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block page_pagination %}
+  {% if h.isAdmin() %}  
+    {{ page.pager(q=q, order_by=order_by) }}
+  {% endif %} 
+{% endblock %}
