@@ -35,7 +35,7 @@ body[data-site-root] {
   font-family: var(--brand-font-family);
   font-weight: 300;
   background: white;
-  background: url(/hero-bg.svg);
+  background: url(/hero-bg_ult.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
