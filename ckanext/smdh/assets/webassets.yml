@@ -3,11 +3,13 @@ smdh_css:
   output: smdh/%(version)s_smdh.css
   contents:
     - css/smdh.css
+
 smdh_img_cropper_css:
   filter: cssrewrite
   output: smdh/%(version)s_img_cropper_css.css
   contents:
     - css/cropper.min.css
+
 smdh_img_cropper:
   output: smdh/%(version)s_img_cropper.js
   filter: rjsmin
@@ -18,3 +20,13 @@ smdh_img_cropper:
   contents:
     - js/cropper.min.js
     - js/img-cropper.js
+
+smdh_overrides:
+  output: smdh/%(version)s_smdh_overrides.js
+  filters: rjsmin
+  extra:
+    preload:
+      - vendor/vendor
+  contents:
+    - js/slug-preview.override.js
+    - js/jquery.slug-preview.override.js
