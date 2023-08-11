@@ -1,8 +1,8 @@
 {% ckan_extends %}
 
 {% block header_site_navigation_tabs %}
-<li><a href="https://smdh.uk/datahub">DataHub</a></li>
 {{ h.build_nav_main(
+	('datahub.index', _('DataHub')),
 	('dataset.search', _('Datasets')),
 	('organization.index', _('Organizations')),
 	('group.index', _('Groups')),

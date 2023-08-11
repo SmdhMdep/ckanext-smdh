@@ -2,11 +2,13 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
 import ckanext.smdh.helpers as helpers
+from .views.datahub import datahub
 
 class SmdhPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers, inherit=True)
     plugins.implements(plugins.IPackageController, inherit=True)
+    plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
 
@@ -42,3 +44,6 @@ class SmdhPlugin(plugins.SingletonPlugin):
             else:
                 data_dict['sort'] = 'score desc, date_last_modified desc'
         return data_dict
+
+    def get_blueprint(self):
+        return datahub
