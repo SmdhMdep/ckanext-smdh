@@ -17,8 +17,8 @@
       {% set domain = domain|replace("http://", "")|replace("https://", "") %}
       {% set attrs = {'data-module': 'slug-preview-slug', 'class': 'form-control input-sm', 'data-module-prefix': domain, 'data-module-placeholder': '<' + group_type + '>'} %}
 
-      {{ form.prepend('name', label=_('URL'), prepend=prefix, id='field-url', placeholder=_('my-' + group_type), value=data.name, error=errors.name, attrs=attrs, is_required=true) }}
-    
+      {{ form.prepend('name', label=_('URL'), prepend=prefix, id='field-url', placeholder=_('my-' + group_type), value=data.name, error=errors.name, attrs=attrs, is_required=true, disabled=true if data.id else false) }}
+
     {% else %}
 
       {# Perhaps these should be moved into the controller? #}

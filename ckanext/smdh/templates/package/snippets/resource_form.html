@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+
+{% block basic_fields_name %}
+  {% if data.id %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
