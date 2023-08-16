@@ -2,7 +2,7 @@
 
 
 {% block basic_fields_name %}
-  {% if data.id %}
+  {% if not data.id %}
     {{ super() }}
   {% endif %}
 {% endblock %}
