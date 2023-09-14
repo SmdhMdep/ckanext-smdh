@@ -3,18 +3,17 @@ import logging
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
-import ckanext.smdh.helpers as helpers
+from ckanext.smdh import helpers
+from ckanext.smdh import validators
 
 
 logger = logging.getLogger(__name__)
 
 
-class SmdhPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
+class SmdhPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers, inherit=True)
     plugins.implements(plugins.IPackageController, inherit=True)
-    plugins.implements(plugins.IDatasetForm)
-    plugins.implements(plugins.IGroupForm)
     plugins.implements(plugins.IValidators)
 
     # IConfigurer
@@ -55,54 +54,6 @@ class SmdhPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     # IValidators
     def get_validators(self):
         return {
-            no_update_to_model_name.__name__: no_update_to_model_name,
-            no_update_to_resource_name.__name__: no_update_to_resource_name,
+            validators.no_update_to_model_name.__name__: validators.no_update_to_model_name,
+            validators.no_update_to_resource_name.__name__: validators.no_update_to_resource_name,
         }
-
-    # IDatasetForm & IGroupForm
-    def _update_schema(self, schema, model):
-        validator = toolkit.get_validator(no_update_to_model_name.__name__)(model)
-        schema['name'].append(validator)
-        return schema
-
-    def update_package_schema(self):
-        schema = self._update_schema(super().update_package_schema(), 'package')
-        validator = toolkit.get_validator(no_update_to_resource_name.__name__)
-        schema['resources']['name'].append(validator)
-        return schema
-
-    def update_group_schema(self):
-        return self._update_schema(super().update_package_schema(), 'group')
-
-    def is_fallback(self):
-        return True
-
-    def package_types(self):
-        return []
-
-    def group_types(self):
-        return []
-
-
-def no_update_to_model_name(model_key: str):
-    def validator(value, context):
-        model = context.get(model_key)
-        if model and model.name != value:
-            raise toolkit.Invalid(
-                f'Cannot change value of key from {model.name} to {value}. This key is read-only'
-            )
-        return value
-    return validator
-
-def no_update_to_resource_name(key, data, errors, context):
-    resource_id = data.get(key[:-1] + ('id',))
-    if not resource_id:
-        return
-
-    session = context['session']
-    model = context['model']
-    before_name = session.query(model.Resource.name).filter_by(id=resource_id).first()
-    if before_name and before_name[0] != data[key]:
-        errors[key].append(
-            f'Cannot change value of key from {before_name[0]} to {data[key]}. This key is read-only'
-        )
