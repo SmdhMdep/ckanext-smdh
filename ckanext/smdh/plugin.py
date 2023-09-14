@@ -38,8 +38,13 @@ class SmdhPlugin(plugins.SingletonPlugin):
 
     # ITemplateHelpers
     def get_helpers(self):
-        return {'isAdmin': helpers.isAdmin,
-        'getTracking': helpers.getTracking
+        return {
+            'isAdmin': helpers.isAdmin,
+            'getTracking': helpers.getTracking,
+            'can_update_owner_org': helpers.can_update_owner_org,
+            'convert_local_package_name_to_global': helpers.convert_local_package_name_to_global,
+            'convert_global_package_name_to_local': helpers.convert_global_package_name_to_local,
+            'ensure_global_package_name': helpers.ensure_global_package_name,
         }
 
     # IPackageController
@@ -56,4 +61,7 @@ class SmdhPlugin(plugins.SingletonPlugin):
         return {
             validators.no_update_to_model_name.__name__: validators.no_update_to_model_name,
             validators.no_update_to_resource_name.__name__: validators.no_update_to_resource_name,
+            validators.no_update_to_package_owner_org.__name__: validators.no_update_to_package_owner_org,
+            validators.convert_global_package_name_to_local.__name__: validators.convert_global_package_name_to_local,
+            validators.ensure_global_package_name.__name__: validators.ensure_global_package_name,
         }

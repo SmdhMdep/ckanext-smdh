@@ -1,5 +1,7 @@
 from ckan.plugins import toolkit
 
+from . import helpers as h
+
 
 def no_update_to_model_name(model_key: str):
     def validator(value, context):
@@ -23,3 +25,28 @@ def no_update_to_resource_name(key, data, errors, context):
         errors[key].append(
             f'Cannot change value of key from {before_name[0]} to {data[key]}. This key is read-only'
         )
+
+def no_update_to_package_owner_org(value, context):
+    model = context.get('package')
+    if model and model.owner_org != value:
+        raise toolkit.Invalid(
+            f'Cannot change the owner organization for dataset'
+        )
+    return value
+
+def convert_global_package_name_to_local(value, context):
+    return h.convert_global_package_name_to_local(value)
+
+def ensure_global_package_name(key, data, errors, context):
+    model = context['model']
+    session = context['session']
+
+    if data[key] is toolkit.missing or not data[key]:
+        return
+
+    query = session.query(model.Group.name).filter_by(id=data[('owner_org',)])
+    org_name = query.first().name
+    try:
+        data[key] = h.ensure_global_package_name(org_name, data[key])
+    except ValueError:
+        errors[key].append("URL must not contain '--'")
