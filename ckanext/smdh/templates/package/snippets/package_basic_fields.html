@@ -2,8 +2,10 @@
 
 {% block package_basic_fields_url %}
 {% set prefix = h.url_for('dataset.read', id='') %}
+{% set prefix = prefix if data.id else prefix ~ h.convert_local_package_name_to_global('<organization>', '') %}
 {% set domain = h.url_for('dataset.read', id='', qualified=true) %}
 {% set domain = domain|replace("http://", "")|replace("https://", "") %}
+{% set domain = domain if data.id else domain ~ h.convert_local_package_name_to_global('<organization>', '') %}
 {% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain, 'data-module-placeholder': '<dataset>', 'data-module-package-id': data.id, 'class': 'form-control input-sm'} %}
   {{ form.prepend('name', id='field-name', label=_('URL'), prepend=prefix, placeholder=_('eg. my-dataset'), value=data.name, error=errors.name, attrs=attrs, is_required=true, disabled=true if data.id else false) }}
 {% endblock %}

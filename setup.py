@@ -85,6 +85,8 @@ setup(
     entry_points='''
         [ckan.plugins]
         smdh=ckanext.smdh.plugin:SmdhPlugin
+        smdh_dataset_form=ckanext.smdh.dataset_form_plugin:SmdhDatasetFormPlugin
+        smdh_group_form=ckanext.smdh.group_form_plugin:SmdhGroupFormPlugin
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan
