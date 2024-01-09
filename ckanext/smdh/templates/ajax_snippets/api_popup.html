@@ -1,0 +1,115 @@
+{#
+Displays information about accessing a resource via the API.
+
+resource_id - The resource id
+embedded - If true will not include the "modal" classes on the snippet.
+#}
+
+{% set resource_id = h.sanitize_id(resource_id) %}
+{# not urlencoding the sql because its clearer #}
+<div{% if not embedded %} class="modal fade"{% endif %}>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>
+          {{ _('CKAN Data API') }}
+        </h3>
+      </div>
+
+      <div{% if not embedded %} class="modal-body"{% endif %}>
+        <p><strong>{{ _('Control your packages and resource via a web API') }}</strong>.
+        {% trans %}
+        Further information in the <a
+          href="https://docs.ckan.org/en/2.9/api/#action-api-reference" target="_blank">
+          CKAN API documentation</a>.</p>
+        {% endtrans %}
+
+        <p><strong>{{ _('Some API functions require an API Key,') }}</strong>.
+          You can find your API key 
+          <a href="{{ h.url_for('user.api_tokens', id=c.user, qualified=True) }}" >here</a>
+        </p>
+  
+        <div class="panel-group" id="accordion2">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion2" href="#collapse-endpoints">{{ _(' Dataset Endpoints') }} &raquo;</a>
+            </div>
+            <div id="collapse-endpoints" class="in panel-collapse collapse">
+              <div class="panel-body">
+                <p>{{ _('The Data API can be accessed via the following actions of the CKAN action API.') }}</p>
+                <table class="table-condensed table-striped table-bordered">
+                  <thead></thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{ _('Create') }}</th>
+                      <td><code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='package_create', qualified=True) }}</code></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">{{ _('Update / Insert') }}</th>
+                      <td><code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='package_update', qualified=True) }}</code></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">{{ _('List') }}</th>
+                      <td><code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='package_list', qualified=True) }}</code></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">{{ _('Get') }}</th>
+                      <td><code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='package_show', qualified=True) }}</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion2" href="#collapse-endpoints">{{ _('Resource Endpoints') }} &raquo;</a>
+            </div>
+            <div id="collapse-endpoints" class="in panel-collapse collapse">
+              <div class="panel-body">
+                <p>{{ _('The Data API can be accessed via the following actions of the CKAN action API.') }}</p>
+                <table class="table-condensed table-striped table-bordered">
+                  <thead></thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{ _('Create') }}</th>
+                      <td><code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_create', qualified=True) }}</code></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">{{ _('Update / Insert') }}</th>
+                      <td><code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_update', qualified=True) }}</code></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">{{ _('Search') }}</th>
+                      <td><code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_search', qualified=True) }}</code></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">{{ _('Get') }}</th>
+                      <td><code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_show', qualified=True) }}</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="accordion2" aria-expanded="false" href="#collapse-querying">{{ _('Searching Resources') }} &raquo;</a>
+            </div>
+            <div id="collapse-querying" class="collapse panel-collapse" aria-expanded="false">
+              <div class="panel-body">
+                <strong>{{ _('Search example (all .CSV resources)') }}</strong>
+                <p>
+                  <code><a href="{{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_search', qualified=True) }}?query=format:csv" target="_blank" rel="nofollow">{{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_search', qualified=True) }}{{ _('?query=format:csv') }}</a></code>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
