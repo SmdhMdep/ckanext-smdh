@@ -6,3 +6,10 @@
     {{ super() }}
   {% endif %}
 {% endblock %}
+
+{% block save_button %}
+  <a class="btn btn-primary" href="{{ h.url_for(controller='dataset', action='edit', id=pkg_name) }}">
+    {{ _("Edit dataset's metadata & sharing options") }}
+  </a>  
+  {{ super() }}
+{% endblock %}
