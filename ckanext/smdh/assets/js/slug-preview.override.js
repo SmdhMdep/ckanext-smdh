@@ -56,7 +56,7 @@ this.ckan.module('slug-preview-slug', function (jQuery) {
         preview = parent.slugPreview({
           prefix: options.prefix,
           placeholder: options.placeholder,
-          editable: !slug[0].disabled,
+          editable: !slug[0].disabled && !slug[0].readOnly,
           i18n: {
             'URL': this._('URL'),
             'Edit': this._('Edit')
