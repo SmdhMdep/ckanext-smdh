@@ -45,6 +45,7 @@ class SmdhPlugin(plugins.SingletonPlugin):
             'convert_local_package_name_to_global': helpers.convert_local_package_name_to_global,
             'convert_global_package_name_to_local': helpers.convert_global_package_name_to_local,
             'ensure_global_package_name': helpers.ensure_global_package_name,
+            'isPrivateDatasetEnabled': helpers.isPrivateDatasetEnabled,
         }
 
     # IPackageController
