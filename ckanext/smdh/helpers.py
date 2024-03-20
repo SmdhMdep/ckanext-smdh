@@ -60,3 +60,9 @@ def ensure_global_package_name(organization_name, name):
     if name.startswith(namespace_prefix):
         name = name[len(namespace_prefix):]
     return convert_local_package_name_to_global(organization_name, name)
+
+def isPrivateDatasetEnabled():
+    if "privatedatasets" in toolkit.config.get('ckan.plugins').split(" "):
+        return True
+    else:
+        return False

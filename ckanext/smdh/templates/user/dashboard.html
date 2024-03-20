@@ -1,0 +1,14 @@
+{% ckan_extends %}
+
+{% block content_primary_nav %}
+        <ul class="nav nav-tabs">
+            {{ h.build_nav_icon('dashboard.index', _('News feed'), icon='list') }}
+            {{ h.build_nav_icon('dashboard.datasets', _('My Datasets'), icon='sitemap') }}
+
+            <!-- Required as we have two different plugins editing the same block -->
+            {% if h.isPrivateDatasetEnabled %}
+                {{ h.build_nav_icon('privatedatasets.acquired_datasets', _('Shared Datasets'), icon='archive') }}
+            {% endif %}
+            {{ h.build_nav_icon('dashboard.organizations', _('My Organizations'), icon='building-o') }}
+        </ul>
+{% endblock %}   
