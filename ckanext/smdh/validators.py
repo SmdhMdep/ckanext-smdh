@@ -44,9 +44,13 @@ def ensure_global_package_name(key, data, errors, context):
     if data[key] is toolkit.missing or not data[key]:
         return
 
-    query = session.query(model.Group.name).filter_by(id=data[('owner_org',)])
-    org_name = query.first().name
+    # NOTE assumes that create_unowned_dataset is False
+    group = model.Group.get(data[('owner_org',)])
+    if not group:
+        # will be invalidated by the owner_org validation, no errors need to be reported here
+        return
+
     try:
-        data[key] = h.ensure_global_package_name(org_name, data[key])
+        data[key] = h.ensure_global_package_name(group.name, data[key])
     except ValueError:
         errors[key].append("URL must not contain '--'")
