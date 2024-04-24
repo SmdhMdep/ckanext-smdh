@@ -117,6 +117,7 @@ button.navbar-toggle {
 .masthead {
   background: #ffffff;
   box-shadow: 0px 4px 3px 1px rgb(11 10 10 / 27%);
+  padding: 0px;
 }
 
 .masthead .navigation .nav-pills li a {
