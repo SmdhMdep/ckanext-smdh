@@ -1,0 +1,15 @@
+{% ckan_extends %}
+
+{% block resource_item_explore_links %}
+    {{ super() }}
+    {% if h.check_access('package_update', {'id':pkg.id }) and not is_activity_archive %}
+    <li>
+        {% set loading_text = _('Loading...') %}
+        {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='api_popup.html',
+        resource_id=res.id) %}
+        <a href="{{ api_info_url }}" data-module="api-info"
+            data-module-template="/api/1/util/snippet/api_popup.html?resource_id={{ res.id }}"
+            data-loading-text="{{ loading_text }}"><i class="fa fa-flask"></i> {{ _('Data API') }}</a>
+    </li>
+    {% endif %}
+{% endblock %}
